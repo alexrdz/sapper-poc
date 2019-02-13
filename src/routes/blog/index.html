@@ -52,32 +52,24 @@
 	export default {
 		oncreate() {
 			console.log('this.store', this.store);
-			this.store.fetchPlaylists();
 			console.log('this.get().posts', this.get().posts);
 		},
-
 		onstate(state) {
 			if (state.current.names.length < 1) {
-				console.log('fetching...');
 				this.store.fetchData();
+			}
+			if (state.current.playlists.length < 1) {
+				this.store.fetchPlaylists();				
 			}
 		},
 		computed: {
 			posts: ({$posts}) => $posts,
 			names: ({$names}) => {
-				// console.log('$names', $names);
 				return $names;
 			},
 			playlists: ({$playlists}) => {
-
 				return $playlists;
 			},
 		},
-
-		// preload({ params, query }) {
-		// 	return this.fetch(`blog.json`).then(r => r.json()).then(posts => {
-		// 		return { posts };
-		// 	});
-		// }
 	};
 </script>
