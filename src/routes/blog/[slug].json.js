@@ -1,4 +1,7 @@
-import posts from './_posts.js';
+// import posts from './_posts.js';
+import store from '../../store';
+const {posts} = store.get();
+
 
 const lookup = new Map();
 posts.forEach(post => {

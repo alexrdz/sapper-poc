@@ -23,8 +23,35 @@
 		components: {
 			Post,
 		},
+		onstate(state) {
+			// console.log('state', state);
+		},
 		computed: {
-			post: ({$posts, params}) => $posts.filter(post => post.slug === params.slug)[0],
+			// post: ({$posts, params}) => $posts.filter(post => post.slug === params.slug)[0],
+		},
+		async preload({params, query}) {
+			const {posts} = this.store.get();
+			const post = await posts.filter(post => post.slug === params.slug)[0];
+			console.log('r');
+			if (post) {
+				return {
+					post
+				};
+			} else {
+				return {
+					post: this.post
+				}
+			}
+			
+			// const res = await this.fetch(`blog/${params.slug}.json`);
+			// const data = await res.json();
+			// console.log('r>>>');
+
+			// if (res.status === 200) {
+			// 	return { post: data}
+			// } else {
+			// 	this.error(res.status, data.message)
+			// }
 		},
 	};
 </script>
