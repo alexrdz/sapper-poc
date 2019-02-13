@@ -52,7 +52,7 @@
 	export default {
 		oncreate() {
 			console.log('this.store', this.store);
-			console.log('this.get().posts', this.get().posts);
+			console.log('this.get()', this.get());
 		},
 		onstate(state) {
 			if (state.current.names.length < 1) {
@@ -63,18 +63,20 @@
 			}
 		},
 		computed: {
-			posts: ({$posts}) => $posts,
+			// posts: ({$posts}) => $posts,
 			names: ({$names}) => {
 				return $names;
 			},
 			playlists: ({$playlists}) => {
 				return $playlists;
 			},
-			preload(state) {
-				// console.log('state in indexhtml', state);
-				// return { posts: state.posts };
-			},
-
 		},
+		preload({ params, query }) {
+			const {posts} = this.store.get();
+			
+			return { 
+				posts,
+			};
+		}
 	};
 </script>

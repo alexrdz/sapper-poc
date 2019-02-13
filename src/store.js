@@ -20,10 +20,7 @@ class AppStore extends Store {
 	async fetchPlaylists() {
     const playlistsData = await fetch(`http://mixtagon.hdsapps.com/admin/api/collections/get/playlists?token=636c453218ea617ed3df194ecb8b48`)
       .then(r => r.json())
-      .then(res => {
-        console.log('res', res);
-        return res;
-      });
+      .then(res => res);
 
     this.set({playlists: playlistsData.entries});
     return playlistsData.entries;
