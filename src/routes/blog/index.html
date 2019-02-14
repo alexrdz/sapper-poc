@@ -19,7 +19,7 @@
 {/if}
 
 
-{#if names}
+{#if names.length > 0}
 	{#each names as n}
 		{n.name}
 	{/each}
@@ -27,18 +27,6 @@
 	loading...
 {/if}
 
-
-{#if playlists}
-	{#each playlists as p}
-		<p>
-			{p.title}
-			<br>
-			<small>{p.description}</small>
-		</p>
-	{/each}
-{:else}
-	loading...
-{/if}
 
 
 <style>
@@ -58,22 +46,18 @@
 			if (state.current.names.length < 1) {
 				this.store.fetchData();
 			}
-			if (state.current.playlists.length < 1) {
-				this.store.fetchPlaylists();				
-			}
 		},
 		computed: {
 			// posts: ({$posts}) => $posts,
 			names: ({$names}) => {
 				return $names;
 			},
-			playlists: ({$playlists}) => {
-				return $playlists;
-			},
+			
 		},
 		preload({ params, query }) {
 			const {posts} = this.store.get();
-			
+			// const {playlists} = this.store.get();
+
 			return { 
 				posts,
 			};

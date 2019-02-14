@@ -1,13 +1,13 @@
-// import posts from './_posts.js';
 import store from '../../store';
-const {posts} = store.get();
+const {playlists} = store.get();
 
-const contents = JSON.stringify(posts.map(post => {
+const contents = JSON.stringify(playlists.map(playlist => {
 	return {
-		title: post.title,
-		slug: post.slug
+		title: playlist.title,
+		slug: playlist.title_slug
 	};
 }));
+
 
 export function get(req, res) {
 	res.writeHead(200, {

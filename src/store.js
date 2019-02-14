@@ -1,5 +1,6 @@
 import {Store} from 'svelte/store';
 import posts from './routes/blog/_posts.js';
+import fetch from 'cross-fetch';
 
 const BIN = '5bf2de2080d3c667b1e9a179';
 const API_URL = 'https://api.jsonbin.io/b/';
@@ -20,7 +21,7 @@ class AppStore extends Store {
 	async fetchPlaylists() {
     const playlistsData = await fetch(`http://mixtagon.hdsapps.com/admin/api/collections/get/playlists?token=636c453218ea617ed3df194ecb8b48`)
       .then(r => r.json())
-      .then(res => res);
+      .then(res => res)
 
     this.set({playlists: playlistsData.entries});
     return playlistsData.entries;
@@ -28,8 +29,12 @@ class AppStore extends Store {
 	
 }
 
-export default new AppStore({
+const store = new AppStore({
 	posts,
 	names: [],
 	playlists: [],
 });
+
+store.fetchPlaylists();
+
+export default store;

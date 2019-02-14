@@ -1,0 +1,33 @@
+<svelte:head>
+	<title>Playlists</title>
+</svelte:head>
+
+<h1>Testing...</h1>
+
+
+{#if playlists}
+	{#each playlists as p}
+		<p>
+			<li><a rel=prefetch href="playlists/{p.title_slug}">{p.title}</a></li>
+			<br>
+			<small>{p.description}</small>
+		</p>
+	{/each}
+{:else}
+	loading...
+{/if}
+
+<script>
+  export default {
+    onstate(state) {
+			if (state.current.playlists.length < 1) {
+				this.store.fetchPlaylists();
+			}
+		},
+    computed: {
+      playlists: ({$playlists}) => {
+				return $playlists;
+			},
+    }
+  }
+</script>

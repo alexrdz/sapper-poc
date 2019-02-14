@@ -1,0 +1,25 @@
+<svelte:head>
+	<title>{playlist.title}</title>
+</svelte:head>
+
+<h1>{playlist.title}</h1>
+
+<div class='content'>
+	{@html playlist.description}
+</div>
+
+
+<script>
+export default {
+  async preload({params, query}) {
+      const {playlists} = this.store.get();
+			const playlist = await playlists.filter(playlist => playlist.title_slug === params.slug)[0];
+			
+			if (playlist) {
+				return {
+					playlist
+				};
+			} 
+    },
+}
+</script>
