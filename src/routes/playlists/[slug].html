@@ -2,17 +2,24 @@
 	<title>{playlist.title}</title>
 </svelte:head>
 
-<h1>{playlist.title}</h1>
-
-<div class='content'>
-	{@html playlist.description}
-</div>
+{#if playlist}
+	<Playlist playlist={playlist} />
+{/if}
 
 
 <script>
+import Playlist from '../../components/Playlist.html';
+
 export default {
+	components: {
+		Playlist,
+	},
+	onstate() {
+		console.log('created');
+	},
   async preload({params, query}) {
-      const {playlists} = this.store.get();
+			const {playlists} = this.store.get();
+			console.log('playlists slug', playlists);
 			const playlist = await playlists.filter(playlist => playlist.title_slug === params.slug)[0];
 			
 			if (playlist) {

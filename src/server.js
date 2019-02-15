@@ -14,7 +14,9 @@ polka() // You can also use Express
 		compression({ threshold: 0 }),
 		sirv('static', { dev }),
 		sapper.middleware({
-			store: () => store
+			store: () => {
+				return store;
+			}
 		})
 	)
 	.listen(PORT, err => {

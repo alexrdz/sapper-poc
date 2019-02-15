@@ -1,0 +1,14 @@
+<h1>{playlist.title}</h1>
+
+<div class='content'>
+	{@html playlist.description}
+</div>
+
+<script>
+export default {
+  oncreate() {
+    const {playlists} = this.store.get();
+  },
+
+}
+</script>
