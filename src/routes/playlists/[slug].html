@@ -3,7 +3,7 @@
 </svelte:head>
 
 {#if playlist}
-	<Playlist playlist={playlist} />
+	<Playlist playlist={$currentPlaylist} />
 {/if}
 
 
@@ -14,19 +14,34 @@ export default {
 	components: {
 		Playlist,
 	},
-	onstate() {
-		console.log('created');
+	data() {
+		return {
+			currentPlaylist: {},
+		};
+	},
+	oncreate() {
+		this.store.on('state', ({ current }) => {
+			console.log('current', current);
+		});
+	},
+	onstate(state) {
+		console.log('created', state.current.playlist);
+		this.store.set({currentPlaylist: state.current.playlist});
+	},
+	computed: {
+		// playlist: ({$playlists, params}) => $playlists.filter(playlist => playlist.slug === params.slug)[0],
 	},
   async preload({params, query}) {
-			const {playlists} = this.store.get();
-			console.log('playlists slug', playlists);
-			const playlist = await playlists.filter(playlist => playlist.title_slug === params.slug)[0];
-			
-			if (playlist) {
-				return {
-					playlist
-				};
-			} 
-    },
+		const res = await this.fetch(`http://mixtagon.hdsapps.com/admin/api/collections/get/playlists?token=636c453218ea617ed3df194ecb8b48&populate=1&filter[title_slug]=${params.slug}`);
+		const data = await res.json();
+
+		if (res.status == 200) {
+			this.store.set({currentPlaylist: data.entries[0]});
+			return {playlist: data.entries[0]};
+		} else {
+			this.error(res.status, data.message);
+		}
+
+	},
 }
 </script>

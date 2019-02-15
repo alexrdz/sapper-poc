@@ -22,7 +22,7 @@ class AppStore extends Store {
 	async fetchPlaylists() {
     const playlistsData = await axios.get(`http://mixtagon.hdsapps.com/admin/api/collections/get/playlists?token=636c453218ea617ed3df194ecb8b48`)
       .then(res => res);
-    console.log('playlistsData', playlistsData);
+
     this.set({
       playlistsLoading: false,
       playlistsLoaded: true,
@@ -40,6 +40,7 @@ const store = new AppStore({
   playlists: [],
   playlistsLoading: true,
   playlistsLoaded: false,
+  currentPlaylist: {},
 });
 store.fetchPlaylists();
 

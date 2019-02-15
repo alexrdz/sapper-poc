@@ -5,7 +5,7 @@
 <h1>Testing...</h1>
 
 {#if $playlistsLoaded}
-	{#each playlists as p}
+	{#each $playlists as p}
 	<p>
 		<li><a rel=prefetch href="playlists/{p.title_slug}">{p.title}</a></li>
 		<br>
@@ -23,10 +23,10 @@
 <script>
   export default {
     onstate(state) {
+			console.log('state', state);
 		},
 		preload({ params, query }) {
 			const {playlists} = this.store.get();
-			console.log('playlists', playlists);
 			// const {playlists} = this.store.get();
 
 			return { 
