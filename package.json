@@ -10,7 +10,8 @@
     "cy:run": "cypress run",
     "cy:open": "cypress open",
     "test": "run-p --race dev cy:run",
-    "deploy": "scp -r __sapper__/export/. horch001@shell.guardedhost.com:../hyphenated/www/"
+    "ftp": "scp -r __sapper__/export/. horch001@shell.guardedhost.com:../hyphenated/www/",
+    "deploy": "npm run export && npm run ftp"
   },
   "dependencies": {
     "axios": "^0.18.0",

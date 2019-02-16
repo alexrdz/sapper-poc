@@ -10,7 +10,7 @@ const dev = NODE_ENV === 'development';
 
 
 async function fetchPlaylists() {
-	const playlistsData = await axios.get(`http://mixtagon.hdsapps.com/admin/api/collections/get/playlists?token=636c453218ea617ed3df194ecb8b48`)
+	const playlistsData = await axios.get(`https://mixtagon.hdsapps.com/admin/api/collections/get/playlists?token=636c453218ea617ed3df194ecb8b48`)
 		.then(res => res);
 
 	store.set({

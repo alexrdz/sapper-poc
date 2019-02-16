@@ -1,7 +1,7 @@
 <svelte:head>
 	<title>Sapper project template</title>
 </svelte:head>
-
+{#if home}
 <h1>Great success!</h1>
 
 <figure>
@@ -10,12 +10,24 @@
 </figure>
 
 <p><strong>Try editing this file (routes/index.html) to test live reloading.</strong></p>
-
+{:else}
+	<p>loading...</p>
+{/if}
 
 <script>
 	export default {
 		oncreate() {
 			// this.store.fetchPlaylists();
+		},
+		data() {
+			return {
+				home: false
+			};
+		},
+		onstate(state) {
+			if (state.current.path === '/') {
+				this.set({home: true});
+			}
 		}
 	}
 </script>

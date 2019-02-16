@@ -37,20 +37,20 @@ export default {
     this.store.set({currentPlaylist: playlist});
 
     if (playlist) {
-      return {
-        playlist
-      };
-    } else {
-      const res = await this.fetch(`http://mixtagon.hdsapps.com/admin/api/collections/get/playlists?token=636c453218ea617ed3df194ecb8b48&populate=1&filter[title_slug]=${params.slug}`);
-      const data = await res.json();
-  
-      if (res.status == 200) {
-        this.store.set({currentPlaylist: data.entries[0]});
-        return {playlist: data.entries[0]};
-      } else {
-        this.error(res.status, data.message);
-      }
+      return { playlist };
     }
+    
+    // do i really need this?
+    const res = await this.fetch(`https://mixtagon.hdsapps.com/admin/api/collections/get/playlists?token=636c453218ea617ed3df194ecb8b48&populate=1&filter[title_slug]=${params.slug}`);
+    const data = await res.json();
+
+    if (res.status == 200) {
+      this.store.set({currentPlaylist: data.entries[0]});
+      return {playlist: data.entries[0]};
+    } else {
+      this.error(res.status, data.message);
+    }
+    
 
 	},
 }

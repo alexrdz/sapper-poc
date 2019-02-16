@@ -20,7 +20,7 @@ class AppStore extends Store {
 
 
 	async fetchPlaylists() {
-    const playlistsData = await axios.get(`http://mixtagon.hdsapps.com/admin/api/collections/get/playlists?token=636c453218ea617ed3df194ecb8b48`)
+    const playlistsData = await axios.get(`https://mixtagon.hdsapps.com/admin/api/collections/get/playlists?token=636c453218ea617ed3df194ecb8b48`)
       .then(res => res);
 
     this.set({
@@ -30,6 +30,20 @@ class AppStore extends Store {
     });
 
     return playlistsData;
+  }
+
+
+  async fetchPlaylist(slug) {
+    const res = await this.fetch(`https://mixtagon.hdsapps.com/admin/api/collections/get/playlists?token=636c453218ea617ed3df194ecb8b48&populate=1&filter[title_slug]=${params.slug}`);
+    const data = await res.json();
+
+    if (res.status == 200) {
+      this.store.set({
+        currentPlaylist: data.entries.shift()
+      });
+    } 
+    
+    return data.entries.shift();
   }
 	
 }
