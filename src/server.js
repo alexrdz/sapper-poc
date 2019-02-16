@@ -9,17 +9,7 @@ const { PORT, NODE_ENV } = process.env;
 const dev = NODE_ENV === 'development';
 
 
-async function fetchPlaylists() {
-	const playlistsData = await axios.get(`http://mixtagon.hdsapps.com/admin/api/collections/get/playlists?token=636c453218ea617ed3df194ecb8b48`)
-		.then(res => res);
-
-	store.set({
-		playlistsLoading: false,
-		playlistsLoaded: true,
-		playlists: playlistsData.data.entries,
-	});
-
-	polka() // You can also use Express
+polka() // You can also use Express
 	.use(
 		// '/my-base-path',  // add base path
 		compression({ threshold: 0 }),
@@ -33,7 +23,6 @@ async function fetchPlaylists() {
 	.listen(PORT, err => {
 		if (err) console.log('error', err);
 	});
-}
 
 fetchPlaylists();
 
