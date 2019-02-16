@@ -2,8 +2,6 @@
 import store from '../../store';
 const {posts} = store.get();
 
-
-
 const lookup = new Map();
 posts.forEach(post => {
 	lookup.set(post.slug, JSON.stringify(post));

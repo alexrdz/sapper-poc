@@ -3,7 +3,6 @@ const {playlists} = store.get();
 
 const lookup = new Map();
 playlists.forEach(pl => {
-	console.log('pl', pl);
 	lookup.set(pl.slug, JSON.stringify(pl));
 });
 
@@ -13,7 +12,6 @@ export function get(req, res, next) {
 	const { slug } = req.params;
   
 	if (lookup.has(slug)) {
-		console.log('exported!');
 		res.writeHead(200, {
 			'Content-Type': 'application/json'
 		});

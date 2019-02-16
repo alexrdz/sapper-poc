@@ -17,18 +17,21 @@
 {/if}
 
 
-
-
-
 <script>
   export default {
     onstate(state) {
-			console.log('state', state);
+      if (!state.current.$playlistsLoaded) {
+        this.store.fetchPlaylists();
+      }
 		},
 		preload({ params, query }) {
-			const {playlists} = this.store.get();
-			// const {playlists} = this.store.get();
+      const {playlists} = this.store.get();
+      const {playlistsLoaded} = this.store.get();
 
+      if (!playlistsLoaded) {
+        this.store.fetchPlaylists();
+      }
+        
 			return { 
 				playlists,
 			};
