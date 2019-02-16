@@ -21,11 +21,10 @@ export default {
 	},
 	oncreate() {
 		this.store.on('state', ({ current }) => {
-			console.log('current', current);
+			// console.log('current', current);
 		});
 	},
 	onstate(state) {
-		console.log('created', state.current.playlist);
 		this.store.set({currentPlaylist: state.current.playlist});
 	},
 	computed: {
@@ -36,7 +35,6 @@ export default {
     const {playlists} = this.store.get();
     const playlist = playlists.filter(pl => pl.title_slug === params.slug).shift();
     this.store.set({currentPlaylist: playlist});
-    console.log('playlist', playlist);
 
     if (playlist) {
       return {
